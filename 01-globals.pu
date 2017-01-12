@@ -1,0 +1,4 @@
+skinparam componentStyle uml2
+
+!define SHOW_FAM_FRAME
+!define SHOW_INFO

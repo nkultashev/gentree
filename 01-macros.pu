@@ -1,0 +1,101 @@
+!include 01-globals.pu
+
+!ifndef MACROS
+  !define MACROS
+
+  !ifdef SHOW_FAM_FRAME
+    !define FAM_BEGIN(name) frame "name" {
+  !endif
+  !ifndef SHOW_FAM_FRAME
+    !define FAM_BEGIN(name) '
+  !endif
+
+  !ifdef SHOW_FAM_FRAME
+    !define FAM_END }
+  !endif
+  !ifndef SHOW_FAM_FRAME
+    !define FAM_END '
+  !endif
+
+  !definelong node(index,m,f)
+    (+) as c1.index
+    [m] #LightBlue
+    [f] #Pink
+    [m] -d- c1.index #Blue
+    [f] -d- c1.index #Red
+  !enddefinelong
+
+  ' Известна только мать - отец неизвестен
+  !definelong nodeF(index,f)
+    (+) as c1.index
+    [?] as m.index #LightBlue
+    [f] #Pink
+    m.index -d- c1.index #Blue
+    [f] -d- c1.index #Red
+  !enddefinelong
+
+  ' Известен только отец - мать неизвестна
+  !definelong nodeM(index,m)
+    (+) as c1.index
+    [?] as f.index #Pink
+    [m] #LightBlue
+    f.index -d- c1.index #Red
+    [m] -d- c1.index #Blue
+  !enddefinelong
+
+  ' Мать и отец неизвестны
+  !definelong nodeX(index)
+    (+) as c1.index
+    [?] as f.index #Pink
+    [?] as m.index #LightBlue
+    f.index -d- c1.index #Red
+    m.index -d- c1.index #Blue
+  !enddefinelong
+
+  !definelong child(index,ch1)
+    (+) as c1.index
+    c1.index --> [ch1]
+  !enddefinelong
+
+  !definelong child(index,ch1,ch2)
+    child(index,ch1)
+    c1.index --> [ch2]
+  !enddefinelong
+
+  !definelong child(index,ch1,ch2,ch3)
+    child(index,ch1,ch2)
+    c1.index --> [ch3]
+  !enddefinelong
+
+  !definelong child(index,ch1,ch2,ch3,ch4)
+    child(index,ch1,ch2,ch3)
+    c1.index --> [ch4]
+  !enddefinelong
+
+  !ifdef SHOW_INFO
+    !definelong info(person,text)
+      note top of [person] #LighthGray
+        text
+      end note
+    !enddefinelong
+
+    !definelong info(person,dates,place)
+      note top of [person] #LighthGray
+        dates
+        place
+      end note
+    !enddefinelong
+  !endif
+  !ifndef SHOW_INFO
+    !define info(person,text) '
+    !define info(person,dates,place) '
+  !endif
+
+  !define YEARS(y1,y2) y1..y2
+  !define DATE(y) y
+  !define DATE(y,m,d) y-m-d
+  !define DATE(y1,m1,d1,y2) DATE(y1,m1,d1)..DATE(y2)
+  !define DATE(y1,m1,d1,y2,m2,d2) DATE(y1,m1,d1)..DATE(y2,m2,d2)
+
+  !define BORN(text) м.р.: text
+!endif

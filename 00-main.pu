@@ -1,0 +1,18 @@
+@startuml
+  !include 01-macros.pu
+
+  !define ix 1
+  !include 02-Кашины.pu
+
+  !define ix 2
+  !include 02-Зельдичи.pu
+
+  !define ix 7
+  !include 02-Емельяновы-Поляковы-Федуловы.pu
+
+  !define ix 4
+  !include 02-Поспеловы-Пирожковы-Спировы.pu
+
+  !define ix 3
+  !include 02-Култашевы.pu
+@enduml
